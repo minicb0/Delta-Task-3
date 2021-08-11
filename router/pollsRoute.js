@@ -54,6 +54,21 @@ router.post('/teams/polls/create/:tid/:uid', async (req, res) => {
 
             if (pollRegistered) {
                 await Team.findOneAndUpdate({ _id: req.params.tid }, { $push: { polls: poll._id } })
+
+                // notifications
+                const teamAdmins = team.adminsList
+                for (let i = 0; i < teamAdmins.length; i++) {
+                    await User.findByIdAndUpdate({ _id: teamAdmins[i] }, { $push: { notifications: `${user.name} has created a poll ${poll.title} in the team ${team.teamname}` }})
+                }
+            
+                // deleting the notification which was send to the user itself who created the poll
+                await User.findByIdAndUpdate({ _id: req.params.uid }, { $pull: { notifications: `${user.name} has created a poll ${poll.title} in the team ${team.teamname}` }})
+            
+                const teamMembers = team.teamMembers
+                for (let i = 0; i < teamMembers.length; i++) {
+                    await User.findByIdAndUpdate({ _id: teamMembers[i] }, { $push: { notifications: `${user.name} has created a poll ${poll.title} in the team ${team.teamname}` }})
+                }
+
                 req.flash('message', 'Poll Created Successfully')
                 res.redirect('/teams/polls/vote/'+poll._id+'/'+user._id)               
                 // res.status(201).json({ message: "Poll Created Successfully" });
@@ -126,6 +141,22 @@ router.get('/teams/polls/vote/end/:pid/:uid', requiredAuth, checkUser, async (re
     const poll = await Poll.findById({ _id: req.params.pid })
     const user = await User.findById({ _id: req.params.uid })
     await Poll.findByIdAndUpdate({ _id: req.params.pid }, {$set: { pollActive: false }})
+
+    // notifications
+    const team = await Team.findOne({ teamname: poll.teamname })
+    const teamAdmins = team.adminsList
+    for (let i = 0; i < teamAdmins.length; i++) {
+        await User.findByIdAndUpdate({ _id: teamAdmins[i] }, { $push: { notifications: `${user.name} has ended the poll ${poll.title} in the team ${team.teamname}` }})
+    }
+
+    // deleting the notification which was send to the user itself who ended the poll
+    await User.findByIdAndUpdate({ _id: req.params.uid }, { $pull: { notifications: `${user.name} has ended the poll ${poll.title} in the team ${team.teamname}` }})
+
+    const teamMembers = team.teamMembers
+    for (let i = 0; i < teamMembers.length; i++) {
+        await User.findByIdAndUpdate({ _id: teamMembers[i] }, { $push: { notifications: `${user.name} has ended the poll ${poll.title} in the team ${team.teamname}` }})
+    }
+
     req.flash('message', 'Poll has ended')
     res.redirect('/teams/polls/vote/'+poll._id+'/'+user._id)
 })
@@ -140,6 +171,16 @@ router.get('/teams/polls/vote/done/:pid/:uid/:oid', requiredAuth, checkUser, asy
 
     // increases the vote count
     await Poll.findOneAndUpdate({ _id: req.params.pid, 'optionVoted._id': req.params.oid }, { $inc: {'optionVoted.$.votes': 1 }})
+
+    // notifications
+    const team = await Team.findOne({ teamname: poll.teamname })
+    const teamAdmins = team.adminsList
+    for (let i = 0; i < teamAdmins.length; i++) {
+        await User.findByIdAndUpdate({ _id: teamAdmins[i] }, { $push: { notifications: `${user.name} has voted for the poll ${poll.title} in the team ${team.teamname}` }})
+    }
+
+    // deleting the notification which was send to the user itself who caste the vote
+    await User.findByIdAndUpdate({ _id: req.params.uid }, { $pull: { notifications: `${user.name} has voted for the poll ${poll.title} in the team ${team.teamname}` }})
 
     req.flash('message', 'Congrats! You have successfully voted')
     res.redirect('/teams/polls/vote/'+poll._id+'/'+user._id)

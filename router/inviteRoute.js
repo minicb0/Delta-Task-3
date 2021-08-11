@@ -37,6 +37,12 @@ router.get('/:uid/notifications/team/invite/accept/:tid', requiredAuth, checkUse
         await User.findByIdAndUpdate({ _id: req.params.uid }, {$pull: { invitaitionRecieved: team._id }})
         await User.findByIdAndUpdate({ _id: req.params.uid }, {$push: { memberOfTeams: team.teamname }})
 
+        // notifications
+        const teamAdmins = team.adminsList
+        for (let i = 0; i < teamAdmins.length; i++) {
+            await User.findByIdAndUpdate( { _id: teamAdmins[i] }, { $push: { notifications: `${user.name} has accepted your Invite Link of Team ${team.teamname}` }})
+        }
+
         req.flash('message', team.teamname +' - Team Joined Successfully')
         res.redirect('/'+user._id+'/notifications')
         // res.send("invite accepted")
@@ -74,6 +80,19 @@ router.get('/:uid/notifications', requiredAuth, checkUser, async (req, res) => {
             teams.push(team)
         }
         res.render('notifications', { teams, message: req.flash('message') });
+    } catch (err) {
+        console.log(err)
+    }
+})
+
+// delte all notifications
+router.get('/:uid/notifications/delete', requiredAuth, checkUser, async (req, res) => {
+    try{
+        const user = await User.findById({ _id: req.params.uid })
+        await User.findByIdAndUpdate({ _id: req.params.uid }, { $set: { notifications: [] }})
+
+        req.flash('message', 'All Notifications Deleted Successfully')
+        res.redirect('/'+user._id+'/notifications');
     } catch (err) {
         console.log(err)
     }

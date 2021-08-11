@@ -35,6 +35,9 @@ const userSchema = new mongoose.Schema({
     }],
     votedPolls: [
         mongoose.Schema.Types.ObjectId
+    ],
+    notifications: [
+        String
     ]
 });
 
