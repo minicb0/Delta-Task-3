@@ -87,11 +87,12 @@ router.get('/teams/polls/view/:tid', requiredAuth, checkUser, async (req, res) =
 router.get('/teams/polls/vote/:pid/:uid', requiredAuth, checkUser, async (req, res) => {
     const poll = await Poll.findById({ _id: req.params.pid })
     const user = await User.findById({ _id: req.params.uid })
-
+    const team = await Team.findOne({ teamname: poll.teamname})
+    // console.log(team)
     var userVoted = false;
     // console.log(user._id)
     // console.log(poll.usersVoted)
-
+    
     // check if user has already voted
     for (let k=0; k < poll.usersVoted.length; k++) {
         var userVoteExist = await User.findById({ _id: poll.usersVoted[k] })
@@ -106,7 +107,7 @@ router.get('/teams/polls/vote/:pid/:uid', requiredAuth, checkUser, async (req, r
     }
     // console.log(userVoted)
 
-    res.render('votepoll', { poll, userVoted, message: req.flash('message') })
+    res.render('votepoll', { poll, team, userVoted, message: req.flash('message') })
 })
 
 // ending a poll

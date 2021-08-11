@@ -18,7 +18,10 @@ const userSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    teams: [
+    adminOfTeams: [
+        String
+    ],
+    memberOfTeams: [
         String
     ],
     invitaitionRecieved: [{

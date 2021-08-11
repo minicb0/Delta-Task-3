@@ -35,7 +35,7 @@ router.get('/:uid/notifications/team/invite/accept/:tid', requiredAuth, checkUse
         await Team.findByIdAndUpdate({ _id: req.params.tid }, {$pull: { invitedUsers: user._id }})
         await Team.findByIdAndUpdate({ _id: req.params.tid }, {$push: { teamMembers: user._id }})
         await User.findByIdAndUpdate({ _id: req.params.uid }, {$pull: { invitaitionRecieved: team._id }})
-        await User.findByIdAndUpdate({ _id: req.params.uid }, {$push: { teams: team.teamname }})
+        await User.findByIdAndUpdate({ _id: req.params.uid }, {$push: { memberOfTeams: team.teamname }})
 
         req.flash('message', team.teamname +' - Team Joined Successfully')
         res.redirect('/'+user._id+'/notifications')

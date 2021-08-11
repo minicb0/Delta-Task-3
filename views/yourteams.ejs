@@ -20,21 +20,32 @@
                 <div id="contentWrapper">
                     <div class="form-container">
                         <div class="usersDiv">
+                            <strong>Teams you're admin of:</strong>
                             <ul>
-                                <% for(let i=0; i < user.teams.length; i++) { %>
+                                <% for(let i=0; i < teamsDataA.length; i++) { %>
                                     <li>
                                         <i class="fas fa-users fa-2x"></i>
-                                        <h3><%= user.teams[i] %> </h3><br>
+                                        <h3><%= teamsDataA[i].teamname %> </h3><br>
                                         <div class="buttonsDiv">
-                                            <% if (teamsData[i].admin == currentUser.name) { %>
-                                                <a href='/teams/details/<%= teamsData[i]._id %>' class="buttonAnchor">Invite Users</a>
-                                                <a href='/teams/polls/create/<%= teamsData[i]._id %>/<%= currentUser._id %>' class="buttonAnchor">Create Polls</a>
-                                            <% } %>
-                                            <a href='/teams/polls/view/<%= teamsData[i]._id %>' class="buttonAnchor">View Polls</a>
+                                            <a href='/teams/details/<%= teamsDataA[i]._id %>' class="buttonAnchor">Invite Users</a>
+                                            <a href='/teams/polls/create/<%= teamsDataA[i]._id %>/<%= currentUser._id %>' class="buttonAnchor">Create Polls</a>
+                                            <a href='/teams/polls/view/<%= teamsDataA[i]._id %>' class="buttonAnchor">View Polls</a>
                                         </div>
-                                        <% if (teamsData[i].admin == currentUser.name) { %>
-                                            <strong>Note: </strong> Invite Users and Create Polls Buttons are only visible to team admins(you).
-                                        <% } %>
+                                        <strong>Note: </strong> Invite Users and Create Polls Buttons are only visible to team admins(you).
+                                    </li>
+                                <% } %>
+                            </ul>
+                        </div>
+                        <div class="usersDiv">
+                            <strong>Teams you're member of:</strong>
+                            <ul>
+                                <% for(let i=0; i < teamsDataM.length; i++) { %>
+                                    <li>
+                                        <i class="fas fa-users fa-2x"></i>
+                                        <h3><%= teamsDataM[i].teamname %> </h3><br>
+                                        <div class="buttonsDiv">
+                                            <a href='/teams/polls/view/<%= teamsDataM[i]._id %>' class="buttonAnchor">View Polls</a>
+                                        </div>
                                     </li>
                                 <% } %>
                             </ul>

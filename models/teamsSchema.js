@@ -9,6 +9,9 @@ const teamsSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    adminsList: [
+        mongoose.Schema.Types.ObjectId
+    ],
     createdon: {
         type: String,
         required: true

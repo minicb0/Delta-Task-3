@@ -21,18 +21,24 @@
                     <div class="form-container">
                         <div class="textInputDiv">
                             <label for="teamname"><strong>Team Name</strong></label>
-                            <input type="text" id="name" name="teamname" placeholder="Team Name" value="<%= team.teamname %>" class="disabled" readonly>
+                            <input type="text" name="teamname" placeholder="Team Name" value="<%= team.teamname %>" class="disabled" readonly>
                         </div>
                         <div class="textInputDiv">
-                            <label for="admin"><strong>Team Admin (you)</strong></label>
-                            <input type="text" id="name" name="admin" value="<%= team.admin %>" class="disabled" readonly>
+                            <label for="admin"><strong>Team Created by:</strong></label>
+                            <input type="text" name="admin" value="<%= team.admin %>" class="disabled" readonly>
                         </div>
                         <div class="textInputDiv">
                             <label for="createdon"><strong>Team Created On</strong></label>
                             <input type="date" name="createdon" value="<%= team.createdon %>" class="disabled" readonly>
                         </div>
                         <div class="textInputDiv" style="margin: 5px;">
-                            <strong>Team Members:</strong>  <i class="fas fa-user-shield" style="color: rgb(3, 112, 17);"></i><br>
+                            <strong>Team Admins:</strong>  <i class="fas fa-user-shield" style="color: rgb(3, 112, 17);"></i><br>
+                        </div>
+                        <div class="textInputDiv" style="margin: 5px;">
+                            <strong>Make Member as Admin:</strong>  <i class="fas fa-user-plus" style="color: rgb(3, 112, 17);"></i><br>
+                        </div>
+                        <div class="textInputDiv" style="margin: 5px;">
+                            <strong>Team Members:</strong>  <i class="fas fa-user" style="color: rgb(189, 192, 4);"></i><br>
                         </div>
                         <div class="textInputDiv" style="margin: 5px;">
                             <strong>Users Invited:</strong> <i class="fas fa-user-check" style="color: blue;"></i> <br>
@@ -45,12 +51,25 @@
                         <strong>All Users</strong>
                         <div class="usersDiv">
                             <ul>
-                                <% for (let j=0; j < teammembers.length; j++) { %>
+                                <% for(let j=0; j < adminOfTeams.length; j++) { %>
                                     <li>
                                         <i class="fas fa-user-shield fa-2x" style="color: rgb(3, 112, 17);"></i>
-                                        Name: <%= teammembers[j].name %> <br>
-                                        Email: <%= teammembers[j].email %> <br>
-                                        Age: <%= teammembers[j].age %>
+                                        Name: <%= adminOfTeams[j].name %> <br>
+                                        Email: <%= adminOfTeams[j].email %> <br>
+                                        Age: <%= adminOfTeams[j].age %>
+                                    </li>
+                                <% } %>
+
+                                <% for(let j=0; j < memberOfTeams.length; j++) { %>
+                                    <li>
+                                        <i class="fas fa-user fa-2x" style="color: rgb(189, 192, 4); margin-right: 5px;"></i>
+                                        <a href="/teams/details/makeadmin/<%= team.id %>/<%= memberOfTeams[j]._id %>">
+                                            <i class="fas fa-user-plus fa-2x" style="color: rgb(3, 112, 17); margin-right: 20px;"></i>
+                                        </a>
+                                        
+                                        Name: <%= memberOfTeams[j].name %> <br>
+                                        Email: <%= memberOfTeams[j].email %> <br>
+                                        Age: <%= memberOfTeams[j].age %>
                                     </li>
                                 <% } %>
 

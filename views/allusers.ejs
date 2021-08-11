@@ -29,10 +29,11 @@
                                         <% for(let i=0; i < usersData.length; i++) { %>
                                             <li>
                                                 <i class="fas fa-user fa-2x"></i>
-                                                Name: <%= usersData[i].name %> <br>
-                                                Email: <%= usersData[i].email %> <br>
-                                                Age: <%= usersData[i].age %> <br>
-                                                Teams: <%= usersData[i].teams %>
+                                                <strong>Name:</strong> <%= usersData[i].name %> <br>
+                                                <strong>Email:</strong> <%= usersData[i].email %> <br>
+                                                <strong>Age:</strong> <%= usersData[i].age %> <br>
+                                                <strong>Admin of Teams:</strong> <%= usersData[i].adminOfTeams.join(', ') %> <br>
+                                                <strong>Member of Teams:</strong> <%= usersData[i].memberOfTeams.join(', ') %>
                                             </li>
                                         <% } %>
                                     </ul>
