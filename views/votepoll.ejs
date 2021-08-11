@@ -7,6 +7,7 @@
     <title>Poll - <%= poll.title %></title>
     <link rel="stylesheet" href="/public/css/sidenav.css">
     <link rel="stylesheet" href="/public/css/content.css">
+    <link rel="stylesheet" href="/public/css/canvas-graph.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body style="height: 100%;">
@@ -60,7 +61,7 @@
                         <div class="usersDiv">
                             <% if (team.adminsList.includes(currentUser._id)) { %>
                                 <% if (poll.pollActive == true) { %>
-                                    <strong>Note: </strong> Vote Counts and End Poll Button is only visible to the team admins(you).
+                                    <strong>Note: </strong> Vote Counts, Show Results and End Poll Button is only visible to the team admins(you).
                                 <% } %>
                             <% } %>  
                             <ul id="optionDisplay">
@@ -73,19 +74,19 @@
                                             <img src="<%= poll.optionVoted[i].img %>" class="renderOptionImg">
                                             <% } %>
                                             
-                                            <div class="renderOptionTitle"> <%= poll.optionVoted[i].title %> </div> 
+                                            <div class="renderOptionTitle"> <span class="noOfCandidates"> <%= poll.optionVoted[i].title %> </span></div> 
                                         </div>
                                        <% if (userVoted == false) { %>
                                         <div>
                                             <% if (poll.pollActive == true) { %>
                                                 <% if (team.adminsList.includes(currentUser._id)) { %>
-                                                    <span class=""> Vote Count - <%= poll.optionVoted[i].votes %> </span>
+                                                    <span class=""> Vote Count - <span class="noOfVotes"> <%= poll.optionVoted[i].votes %> </span></span>
                                                     <a href="/teams/polls/vote/done/<%= poll._id %>/<%= currentUser._id %>/<%= poll.optionVoted[i]._id %>" class="buttonAnchor"> Vote </a>
                                                 <% } else { %>
                                                     <a href="/teams/polls/vote/done/<%= poll._id %>/<%= currentUser._id %>/<%= poll.optionVoted[i]._id %>" class="buttonAnchor"> Vote </a> 
                                                 <% } %>
                                             <% } else { %>
-                                                <span class=""> Vote Count - <%= poll.optionVoted[i].votes %> </span>
+                                                <span class=""> Vote Count - <span class="noOfVotes"> <%= poll.optionVoted[i].votes %> </span></span>
                                                 <a class="buttonAnchorDisabled"> Vote </a>
                                             <% } %>
                                         </div>
@@ -93,13 +94,13 @@
                                         <div>
                                             <% if (poll.pollActive == true) { %>
                                                 <% if (team.adminsList.includes(currentUser._id)) { %>
-                                                    <span class=""> Vote Count - <%= poll.optionVoted[i].votes %> </span>
+                                                    <span class=""> Vote Count - <span class="noOfVotes"> <%= poll.optionVoted[i].votes %> </span></span>
                                                     <a class="buttonAnchorDisabled"> Vote </a>
                                                 <% } else { %>
                                                     <a class="buttonAnchorDisabled"> Vote </a> 
                                                 <% } %>
                                             <% } else { %>
-                                                <span class=""> Vote Count - <%= poll.optionVoted[i].votes %> </span>
+                                                <span class=""> Vote Count - <span class="noOfVotes"> <%= poll.optionVoted[i].votes %> </span></span>
                                                 <a class="buttonAnchorDisabled"> Vote </a>
                                             <% } %>
                                         </div>
@@ -116,14 +117,21 @@
                             <% if (team.adminsList.includes(currentUser._id)) { %>
                                 <% if (poll.pollActive == true) { %>
                                     <a href="/teams/polls/vote/end/<%= poll._id %>/<%= currentUser._id %>" style="background-color: red;" class="buttonAnchor">End Poll</a>
+                                    <button id="showResult" class="buttonAnchor">Show Results</button>
                                 <% } else { %>
                                     <a style="background-color: rgba(255, 0, 0, 0.726);" class="buttonAnchorDisabled">Poll Ended</a>
+                                    <button id="showResult" class="buttonAnchor">Show Results</button>
                                 <% } %>
                             <% } else { %>
                                 <% if (poll.pollActive == false) { %>
                                     <a style="background-color: rgba(255, 0, 0, 0.719);" class="buttonAnchorDisabled">Poll Ended</a>
+                                    <button id="showResult" class="buttonAnchor">Show Results</button>
                                 <% } %>
                             <% } %>
+                        </div>
+                        <div id="canvasGraphDiv" class="hide">
+                            <h2>Results</h2>
+                            <canvas id="canvas"></canvas>
                         </div>
                     </div>
                 </div>
@@ -131,5 +139,6 @@
         </div>
     </div>
     <script src="/public/js/sidenav.js"></script>
+    <script src="/public/js/canvas-graph.js"></script>
 </body>
 </html>
