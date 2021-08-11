@@ -17,4 +17,6 @@ today = yyyy + "-" + mm + "-" + dd
 // console.log(today)
 
 todayDate.value = today;
-deadlineDate.min = today;
+var deadlineMinDate = yyyy + "-" + mm + "-" + (dd+1);
+// console.log(deadlineMinDate)
+deadlineDate.min = deadlineMinDate;

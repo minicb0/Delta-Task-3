@@ -107,6 +107,17 @@ router.get('/teams/polls/vote/:pid/:uid', requiredAuth, checkUser, async (req, r
     }
     // console.log(userVoted)
 
+    // check if deadlline is over
+    var today = new Date()
+    var deadline = poll.deadline
+
+    if (poll.pollActive == true) {
+        if (deadline > today) {
+            poll.pollActive = true
+        } else {
+            poll.pollActive = false
+        }
+    }
     res.render('votepoll', { poll, team, userVoted, message: req.flash('message') })
 })
 

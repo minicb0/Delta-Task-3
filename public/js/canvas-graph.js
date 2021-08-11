@@ -77,6 +77,8 @@ for (let i = 0; i < allVoteCounts.length; i++) {
     ctx.font = `10px Arial`
     ctx.fillStyle = '#777777';
     ctx.textAlign = "center";
-    ctx.fillText(`${Math.floor(xpercent)}%`, barLeft - 12, 4 + barTop + barWidth /2);
+    if (totalVotes != 0) {
+        ctx.fillText(`${Math.floor(xpercent)}%`, barLeft - 12, 4 + barTop + barWidth /2);
+    }
     barTop += barWidth;
 }

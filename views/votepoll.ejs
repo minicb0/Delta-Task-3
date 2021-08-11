@@ -46,7 +46,7 @@
                             </div>
                             <div class="textInputDiv">
                                 <label for="deadline"><strong>Poll Deadline</strong></label>
-                                <input type="date" id="deadlineDate" value="<%= poll.deadline %>" name="deadline" class="disabled"
+                                <input type="date" id="deadlineDate" value="<%= poll.deadline.toISOString().substr(0,10) %>" name="deadline" class="disabled"
                                 readonly>
                             </div>
                             <div class="textInputDiv">
