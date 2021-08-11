@@ -37,7 +37,9 @@
                         </div>
                         <div class="usersDiv">
                             <strong>Other Notifications (<%= currentUser.notifications.length %>): </strong> (New Notifications comes at the top)
-                            <a href="/<%= currentUser._id %>/notifications/delete" class="buttonAnchor">Delete All Notifications</a>
+                            <% if (currentUser.notifications.length != 0) { %>
+                                <a href="/<%= currentUser._id %>/notifications/delete" class="buttonAnchor">Delete All Notifications</a>
+                            <% } %>
                             <ul>
                                 <% for (let i=currentUser.notifications.length - 1; i >= 0; i--) { %>
                                     <li class="notifsCount">

@@ -26,7 +26,7 @@ router.get('/signup', (req, res) => {
 
 // Signup
 router.post('/signup', async (req, res) => {
-    const { name, email, password, age } = req.body;
+    const { name, email, password, age, role } = req.body;
     // console.log(name)
 
     if (!name || !email || !password || !age) {
@@ -43,7 +43,7 @@ router.post('/signup', async (req, res) => {
             res.redirect('/signup')
             // return res.status(422).json({ error: "Email Already Exists" })
         } else {
-            const user = new User({ name, email, password, age })
+            const user = new User({ name, email, password, age, role })
 
             const userRegistered = await user.save();
 

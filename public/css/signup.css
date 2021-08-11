@@ -63,7 +63,7 @@ h2 {
     border-radius: 10px;
 }
 
-.textInputDiv input {
+.textInputDiv input, .textInputDiv select {
     font-size: 15px;
     width: 100%;
     padding: 10px;

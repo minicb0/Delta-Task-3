@@ -2,7 +2,7 @@
     <div id="profile">
         <div>
             <img src="/public/img/avatar.png" class="symbolName">
-            <div id="role">Role</div>
+            <div id="role"><%= currentUser.role %></div>
             <div id="username"> <%= currentUser.name %></div>
             <div id="usernameIcon"><i class="fas fa-user fa-2x"></i></div>
             <div id="profileLink"><a href="/profile"><i class="fas fa-user"></i><span class="symbolName">Visit Profile</span></a></div>
