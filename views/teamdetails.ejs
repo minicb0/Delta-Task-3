@@ -16,7 +16,11 @@
         <div class="main_content"> 
             <div class="info">
                 <%- include('./partials/header.ejs'); %>
-                <h2><%= team.teamname %></h2>
+                <div class="navButtonsDiv">
+                    <div class="orderButtons"><a href='/teams/polls/create/<%= team._id %>/<%= currentUser._id %>' class="navButtonAnchor">Create New Poll</a></div>
+                    <div class="orderHeading"><h2>Invite Users - <%= team.teamname %></h2></div>
+                    <div class="orderButtons"><a href='/teams/polls/view/<%= team._id %>' class="navButtonAnchor">View this Team Polls</a></div>
+                </div>
                 <div id="contentWrapper">
                     <div class="form-container">
                         <div class="textInputDiv">

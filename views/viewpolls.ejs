@@ -16,7 +16,15 @@
         <div class="main_content"> 
             <div class="info">
                 <%- include('./partials/header.ejs'); %>
-                <h2><%= team.teamname %> - Polls</h2>
+                <div class="navButtonsDiv">
+                    <% if (team.adminsList.includes(currentUser._id)) { %>
+                        <div class="orderButtons"><a href='/teams/details/<%= team._id %>' class="navButtonAnchor">Invite Users to this Team</a></div>
+                    <% } %>
+                    <div class="orderHeading"><h2><%= team.teamname %> - Polls</h2></div>
+                    <% if (team.adminsList.includes(currentUser._id)) { %>
+                        <div class="orderButtons"><a href='/teams/polls/create/<%= team._id %>/<%= currentUser._id %>' class="navButtonAnchor">Create New Poll</a></div>
+                    <% } %>
+                </div>
 
                 <div id="contentWrapper">
                     <div class="form-container">

@@ -52,7 +52,7 @@ router.post('/:uid/createteams', async (req, res) => {
                 await User.findByIdAndUpdate({ _id: req.params.uid }, {$push: { adminOfTeams: teamname }})
                 
                 req.flash('message', 'Team Created Successfully')
-                res.redirect('/'+user._id+'/teams')
+                res.redirect('/teams/details/'+team._id)
                 // res.status(201).json({ message: "Team Created Successfully" });
             } else {
                 req.flash('message', 'Failed to create this team')
