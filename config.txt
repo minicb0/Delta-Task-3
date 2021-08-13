@@ -1,3 +1,6 @@
 PORT=3000
-DATABASE=mongodb+srv://<username>:<password>@cluster0.yvupi.mongodb.net/<database>?retryWrites=true&w=majority
-CLIENT_SECRET='thisisasecretandimnottellingyou'
+DATABASE=mongodb+srv://<username>:<password>@cluster0.yvupi.mongodb.net/deltatask3?retryWrites=true&w=majority
+CLIENT_SECRET=thisisasecretandimnottellingyou
+MAILER_HOST=smtp.gmail.com
+MAILER_EMAIL=youremail@gmail.com
+MAILER_PASSWORD=yourPassword

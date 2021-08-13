@@ -1,6 +1,7 @@
 const express = require("express");
 const router = new express.Router();
 
+const nodemailer = require("nodemailer");
 const mongoose = require('mongoose');
 const DB = process.env.DATABASE
 require('../db/mongoose');
@@ -19,7 +20,35 @@ router.get('/teams/details/invite/:tid/:uid', requiredAuth, checkUser, async (re
 
         await Team.findByIdAndUpdate({ _id: req.params.tid }, {$push: { invitedUsers: user._id }})
         await User.findByIdAndUpdate({ _id: req.params.uid }, {$push: { invitaitionRecieved: team._id }})
-        req.flash('message', user.name+' - User Invited Successfully')
+
+        // node mailer - sending email invitations
+        try {
+            let transporter = nodemailer.createTransport({
+                host: process.env.MAILER_HOST,
+                port: 587,
+                secure: false, // true for 465, false for other ports
+                auth: {
+                    user: process.env.MAILER_EMAIL, // generated ethereal user
+                    pass: process.env.MAILER_PASSWORD, // generated ethereal password
+                },
+                tls: {
+                    rejectUnauthorized: false
+                }
+            });
+
+            let info = await transporter.sendMail({
+                from: '"Poll Booth App" <minicbtest@gmail.com>', // sender address
+                to: user.email, // list of receivers
+                subject: "New Team Invitation", // Subject line
+                html: `Hello ${user.name}! <br> You have a new team invitation from team ${team.teamname}! <br> Click <a href="http://localhost:3000/${user._id}/notifications"> here </a> to see!`, // html body
+            });
+            // console.log("Message sent: %s", info.messageId);
+            req.flash('message', user.name + ' - User Invited Successfully and Email Sent')
+        } catch (err) {
+            console.log(err)
+            req.flash('message', user.name + ' - User Invited Successfully but Error in sending email (see console log)')
+        }
+        
         res.redirect('/teams/details/'+team._id)
     } catch (err) {
         console.log(err)
