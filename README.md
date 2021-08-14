@@ -30,10 +30,11 @@ npm run start
 - [x] Notifications to the admin when someone submits a vote, joins their team using invite, etc.
 - [x] Validate the registration forms (check for duplicate usernames, determine password strength, etc).
 - [x] Add plots/graphs to visualize results of polls.
-- [ ] Prevent SQL injection
+- [ ] Prevent SQL injection.
 
 ## Hacker Mode++:
 - [x] Ability to add multiple admins and user roles (like teachers, CR, students etc).
-- [ ] Send notifications through email.
-- [ ] Google Calendar API integration to keep track of deadlines for polls.
-- [ ] Add chat and real time video conferencing feature.
+- [x] Send notifications through email.
+- [x] Google Calendar API integration to keep track of deadlines for polls.
+- [x] Add real time chat feature.
+- [ ] Add real time video conferencing feature.
