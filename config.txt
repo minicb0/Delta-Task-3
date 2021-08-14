@@ -4,3 +4,6 @@ CLIENT_SECRET=thisisasecretandimnottellingyou
 MAILER_HOST=smtp.gmail.com
 MAILER_EMAIL=youremail@gmail.com
 MAILER_PASSWORD=yourPassword
+GOOGLE_CLIENT_ID=yourClientId
+GOOGLE_CLIENT_SECRET=yourClientSecret
+GOOGLE_REFRESH_TOKEN=refreshToken

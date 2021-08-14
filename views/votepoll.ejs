@@ -53,7 +53,10 @@
                                 <label for="noofoptions"><strong>No of options</strong></label>
                                 <input type="number" id="noOfOptions" name="noofoptions" value="<%= poll.optionTitle.length %>" class="disabled"
                                 readonly>
-                            </div> 
+                            </div>
+                            <% if (team.adminsList.includes(currentUser._id)) { %>
+                                <a href="/teams/polls/google/<%= poll._id %>/<%= currentUser._id %>" class="buttonAnchor">Add to my Calender</a>
+                            <% } %>
                         </div>
                     </div>
                     <div class="form-container">

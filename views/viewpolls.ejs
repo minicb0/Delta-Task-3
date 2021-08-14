@@ -38,7 +38,7 @@
                                         Team - <%= teamPolls[i].teamname %><br>
                                         Created By - <%= teamPolls[i].createdby %><br>
                                         Created On - <%= teamPolls[i].createdon %><br>
-                                        Deadline - <%= teamPolls[i].deadline %>
+                                        Deadline - <%= teamPolls[i].deadline.toISOString().substr(0,10) %>
                                         <div class="buttonsDiv">
                                             <a href='/teams/polls/vote/<%= teamPolls[i]._id %>/<%= currentUser._id %>' class="buttonAnchor">Caste Vote</a>
                                         </div>

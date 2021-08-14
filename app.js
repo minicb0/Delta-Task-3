@@ -38,6 +38,7 @@ app.use(require('./router/teamsRoute.js'));
 app.use(require('./router/pollsRoute.js'));
 app.use(require('./router/inviteRoute.js'));
 app.use(require('./router/chatRoute.js'));
+app.use(require('./router/googleRoute.js'));
 
 // 404 page
 app.get('*', (req, res) => {
