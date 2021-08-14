@@ -27,9 +27,12 @@
                                         <i class="fas fa-users fa-2x"></i>
                                         <h3><%= teamsDataA[i].teamname %> </h3><br>
                                         <div class="buttonsDiv">
-                                            <a href='/teams/details/<%= teamsDataA[i]._id %>' class="buttonAnchor">Invite Users</a>
-                                            <a href='/teams/polls/create/<%= teamsDataA[i]._id %>/<%= currentUser._id %>' class="buttonAnchor">Create Polls</a>
+                                            <a href='/teams/details/<%= teamsDataA[i]._id %>' class="buttonAnchor" style="margin-bottom: 0px;">Invite Users</a>
+                                            <a href='/teams/polls/create/<%= teamsDataA[i]._id %>/<%= currentUser._id %>' class="buttonAnchor" style="margin-bottom: 0px;">Create Polls</a>
+                                        </div>
+                                        <div class="buttonsDiv">
                                             <a href='/teams/polls/view/<%= teamsDataA[i]._id %>' class="buttonAnchor">View Polls</a>
+                                            <a href='/teams/chat/<%= teamsDataA[i]._id %>' class="buttonAnchor">Visit Chat</a>
                                         </div>
                                         <strong>Note: </strong> Invite Users and Create Polls Buttons are only visible to team admins(you).
                                     </li>
@@ -45,6 +48,7 @@
                                         <h3><%= teamsDataM[i].teamname %> </h3><br>
                                         <div class="buttonsDiv">
                                             <a href='/teams/polls/view/<%= teamsDataM[i]._id %>' class="buttonAnchor">View Polls</a>
+                                            <a href='/teams/chat/<%= teamsDataM[i]._id %>' class="buttonAnchor">Visit Chat</a>
                                         </div>
                                     </li>
                                 <% } %>

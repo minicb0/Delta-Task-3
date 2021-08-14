@@ -27,6 +27,12 @@ const teamsSchema = new mongoose.Schema({
     ],
     unInvitedUsers: [
         mongoose.Schema.Types.ObjectId
+    ],
+    messages: [
+        {
+            sendby: String,
+            message: String
+        }
     ]
 });
 

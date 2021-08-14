@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat</title>
+    <link rel="stylesheet" href="/public/css/sidenav.css">
+    <link rel="stylesheet" href="/public/css/content.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+        integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body style="height: 100vh;">
+    <div class="wrapper">
+        <%- include('./partials/sidenav.ejs'); %>
+        <div class="main_content">
+            <div class="info">
+                 <%- include('./partials/header.ejs'); %>
+                <h2>Chat - <%= team.teamname %></h2>
+                <div id="contentWrapper">
+                    <div class="form-container">
+                        <div class="usersDiv" id="scroll" style="max-height: 450px; overflow:auto;">
+                            <ul id="messageContainer">
+                                <span id="currentuser" class="hide"><%= currentUser.name %></span>
+                                <span id="currentteam" class="hide" ><%= team.teamname %></span>
+                                <% for (let i=0; i < team.messages.length; i++) { %>
+                                    <% if(team.messages[i].sendby == currentUser.name) { %>
+                                        <li style="background-color: #77f77f; color: #03a80e; width: 70%; float: right; margin: 3px;"><strong>You: </strong><%= team.messages[i].message %></li>
+                                    <% } else { %>
+                                        <li style="background-color: #8bf2f7; color: #048187; width: 70%; float: left; margin: 3px;"><strong><%= team.messages[i].sendby %>: </strong><%= team.messages[i].message %></li>
+                                    <% } %>
+                                <% } %>
+                            </ul>
+                        </div>
+                        <div>
+                            <form id="sendContainer">
+                                <label for="messageInput"><strong>Write your Message</strong><i style="float: right;"
+                                        class="fas fa-comment"></i></label>
+                                <div class="textInputDiv" style="display: flex; justify-content: space-between; align-items: center;">
+                                    <textarea type="text" id="messageInput" name="messageInput" placeholder="Write your message here..." rows="2"
+                                        required style="margin-bottom: 0px; width: 90%;"></textarea>
+                                    <button type="submit" id="send" class="sendButton"><i style="float: right;"
+                                            class="fas fa-paper-plane fa-2x"></i></button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="http://localhost:5000/socket.io/socket.io.js"></script>
+    <script src="/public/js/chat-client.js"></script>
+    <script src="/public/js/sidenav.js"></script>
+</body>
+
+</html>

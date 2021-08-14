@@ -6,6 +6,8 @@ const cookieParser = require('cookie-parser');
 const flash = require("connect-flash");
 const session = require("express-session");
 
+const io = require('socket.io')(8000)
+
 // setting view engine
 app.set('view engine', 'ejs');
 
@@ -35,6 +37,7 @@ app.use(require('./router/indexRoute.js'));
 app.use(require('./router/teamsRoute.js'));
 app.use(require('./router/pollsRoute.js'));
 app.use(require('./router/inviteRoute.js'));
+app.use(require('./router/chatRoute.js'));
 
 // 404 page
 app.get('*', (req, res) => {

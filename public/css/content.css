@@ -212,6 +212,16 @@ h2 {
     border-radius: 5px;
 }
 
+.sendButton {
+    background-color: transparent;
+    border: none;
+    color: #0f6cf8;
+}
+.sendButton:hover {
+    color: #4f93f8;
+    cursor: pointer;
+}
+
 .hide {
     display: none;
 }
